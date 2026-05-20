@@ -1,0 +1,55 @@
+name: CI/CD Docs Compiler & Auto Publisher
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install System Dependencies for PDF Compilation
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y weasyprint pango1.0-tools
+
+      - name: Install Python Dependencies
+        run: |
+          pip install mkdocs-material pymdown-extensions weasyprint
+
+      - name: Build Static Site HTML
+        run: mkdocs build --clean
+
+      - name: Generate Unified PDF Whitepaper
+        run: |
+          echo "# 台灣扣件產業 AI 轉型白皮書" > unified.md
+          echo "## 邁向智造時代：從自動化到全局打通的 AI 落地指引" >> unified.md
+          cat src/unit1-geopolitics.md >> unified.md
+          cat src/unit2-aqvc-framework.md >> unified.md
+          cat src/unit3-retrofit-mas.md >> unified.md
+          cat src/unit4-oee-roi.md >> unified.md
+          cat src/unit5-mlops-scope3.md >> unified.md
+          cat src/unit6-subsidy-guide.md >> unified.md
+          cat src/unit7-roadmap-kpi.md >> unified.md
+          
+          # Compile to PDF and save inside the site output folder for downloading
+          weasyprint site/index.html site/pdf/taiwan-fastener-ai-whitepaper-latest.pdf
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site

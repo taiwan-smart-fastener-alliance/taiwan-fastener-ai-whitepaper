@@ -1,0 +1,48 @@
+site_name: 台灣扣件產業 AI 轉型白皮書
+site_description: 邁向智造時代：從自動化到全局打通的 AI 落地指引 (文件編號：TW-FASTENER-AI-2026-V1.1)
+site_author: 台灣扣件產業 AI 轉型研究小組
+site_url: https://taiwan-smart-fastener-alliance.github.io/taiwan-fastener-ai-whitepaper/
+
+theme:
+  name: material
+  language: zh-Hant
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: 切換為深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: 切換為淺色模式
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - md_in_html
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search
