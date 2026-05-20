@@ -1,0 +1,1101 @@
+
+<!doctype html>
+<html lang="zh-Hant" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="邁向智造時代：從自動化到全局打通的 AI 落地指引 (文件編號：TW-FASTENER-AI-2026-V1.1)">
+      
+      
+        <meta name="author" content="台灣扣件產業 AI 轉型研究小組">
+      
+      
+        <link rel="canonical" href="https://taiwan-smart-fastener-alliance.github.io/taiwan-fastener-ai-whitepaper/unit3-retrofit-mas/">
+      
+      
+        <link rel="prev" href="../unit2-aqvc-framework/">
+      
+      
+        <link rel="next" href="../unit4-oee-roi/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案 - 台灣扣件產業 AI 轉型白皮書</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#iot" class="md-skip">
+          跳轉至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href=".." title="台灣扣件產業 AI 轉型白皮書" class="md-header__button md-logo" aria-label="台灣扣件產業 AI 轉型白皮書" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            台灣扣件產業 AI 轉型白皮書
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="切換為深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切換為深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="cyan"  aria-label="切換為淺色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切換為淺色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空" aria-label="清空" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="標籤頁" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  台灣扣件產業 AI 轉型白皮書
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../unified/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  台灣扣件產業 AI 轉型白皮書
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../unit1-geopolitics/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  單元一：全球地緣政治環境與台灣扣件產業現況之急迫性
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../unit2-aqvc-framework/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  單元二：AI 轉型策略藍圖與數據就緒度 AQVC 框架
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../unit4-oee-roi/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  單元四：量化指標體系（KPI）與生產效益驗證
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../unit5-mlops-scope3/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  單元五：MLOps 永續運作機制、組織變革共識與範疇三碳排對接
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../unit6-subsidy-guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  單元六：政府補助資源精準對接與操作實務
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../unit7-roadmap-kpi/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  單元七：行動作為、24個月落地時程藍圖與產業升級倡議
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="導航" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="台灣扣件產業 AI 轉型白皮書" class="md-nav__button md-logo" aria-label="台灣扣件產業 AI 轉型白皮書" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    台灣扣件產業 AI 轉型白皮書
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    台灣扣件產業 AI 轉型白皮書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    台灣扣件產業 AI 轉型白皮書
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unit1-geopolitics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元一：全球地緣政治環境與台灣扣件產業現況之急迫性
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unit2-aqvc-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元二：AI 轉型策略藍圖與數據就緒度 AQVC 框架
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#iot_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-iot-retrofit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 舊機台 IoT 數位化改造 (Retrofit) 工法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 核心 AI 應用場景與操作規範
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 核心 AI 應用場景與操作規範">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aai-ai-aoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        場景 A：AI 智慧瑕疵檢測 (AI-AOI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        場景 B：機台預測性維護 (PdM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ai-contingency-plans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 高變異排程與 AI 失效應變預案 (Contingency Plans)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 本單元技術與操作確實檢核表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unit4-oee-roi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元四：量化指標體系（KPI）與生產效益驗證
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unit5-mlops-scope3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元五：MLOps 永續運作機制、組織變革共識與範疇三碳排對接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unit6-subsidy-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元六：政府補助資源精準對接與操作實務
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../unit7-roadmap-kpi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    單元七：行動作為、24個月落地時程藍圖與產業升級倡議
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#iot_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-iot-retrofit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 舊機台 IoT 數位化改造 (Retrofit) 工法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 核心 AI 應用場景與操作規範
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 核心 AI 應用場景與操作規範">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aai-ai-aoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        場景 A：AI 智慧瑕疵檢測 (AI-AOI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pdm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        場景 B：機台預測性維護 (PdM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ai-contingency-plans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 高變異排程與 AI 失效應變預案 (Contingency Plans)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 本單元技術與操作確實檢核表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="iot">單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案</h1>
+<h2 id="iot_1">單元三：核心操作場景、舊機 IoT 改造工法與智慧排程失效預案</h2>
+<p>本單元引言：</p>
+<p>本單元切入工廠產線的最底層執行面。台灣扣件業有超過半數以上的機台屬於無數位輸出、僅靠機械結構運作的「老舊資產」，若不解決舊機改造問題，AI 終將成為空中閣樓。同時，針對產線最核心的品質、維護與生管排程，本單元將詳細規範「舊機 IoT 非破壞性改造工法」、「邊緣端預測性維護技術規格」，以及應對台灣扣件廠「少量多樣、頻繁插單」痛點的「AI 動態排程失效應變預案」，確保技術能實質落地，而非僅停留在理論層面。</p>
+<h3 id="31-iot-retrofit">3.1 舊機台 IoT 數位化改造 (Retrofit) 工法</h3>
+<p>台灣扣件聚落內運行著大量 1990 至 2010 年代製造的台系或日系傳統機械式打頭機與輾牙機。這類設備完全依靠大型飛輪、曲軸與凸輪連桿進行高速鍛造，機身無任何電子控制器（ECU）或 PLC 通訊介面。針對此產業現實，本白皮書明定非破壞性外部加裝改造工法：</p>
+<p>核心感測器配置與物理特徵擷取：</p>
+<p>壓力與成形力分析（Tonnage Monitoring）： 嚴禁動更機台核心受力結構。應於打頭機沖頭滑軌兩側、或機身結構拉桿（Tie-rods）的應力集中處，加裝壓電式力感測器（Piezoelectric Force Sensors）或動態應變規。當沖頭撞擊線材成形時，感測器可精確擷取微應變產生的電壓訊號，用以繪製「應力－時間（Tonnage-Time）曲線」。</p>
+<p>產速與週期監測： 於主飛輪（Flywheel）邊緣加裝工業級接近開關（Proximity Switch）或旋轉編碼器。飛輪每旋轉一圈代表一次打頭衝擊，藉此自動精確計算即時產速與總產量，消滅人工報工誤差。</p>
+<p>馬達健康度監測： 於主驅動馬達之電源控制箱內，加裝開合式電流互感器（Split-core Current Transformers, CT），用以監測負載電流波形，防範馬達過載燒毀。</p>
+<p>邊緣數據整合與通訊轉換層（SMB）：</p>
+<p>各感測器輸出的類比訊號（如 0–10V 或 4–20mA），統一接入安裝於機台旁的工業級智慧機上盒（Smart Machine Box, SMB）。</p>
+<p>智慧機上盒必須具備高頻類比數位轉換（ADC）晶片，取樣頻率需強制設定於 10 kHz 至 20 kHz 之間，方能完整捕捉時速每分鐘 200 至 300 支螺絲的高速沖擊波形。</p>
+<p>SMB 內部韌體將底層時序訊號包裝後，轉譯為工業標準的 OPC-UA 或 MQTT 通訊協定，透過廠內工業乙太網路（Industrial Ethernet），即時串流寫入地端時間序列資料庫（如 InfluxDB）或關聯式資料庫（PostgreSQL）。</p>
+<p>單機改造財務預算初估：</p>
+<p>包含應變規、接近開關、CT馬達感測器、工業級 SMB 及現場配線施工工資，單台機台數位化改造費用應控制在新台幣 8 萬至 15 萬元之間。此一低資本支出門檻極度符合中小型扣件廠的 CapEx 財務承受力。</p>
+<h3 id="32-ai">3.2 核心 AI 應用場景與操作規範</h3>
+<h4 id="aai-ai-aoi">場景 A：AI 智慧瑕疵檢測 (AI-AOI)</h4>
+<p>產線痛點： 螺絲、螺帽等扣件屬於高反射率的金屬物件。傳統基於規則（Rule-based）的光學檢測系統（AOI）極易因打光角度引起的金屬反光、表面殘留油污，將良品誤判為缺陷，造成高達 30% 以上的「過殺率（False Alarm）」，工廠被迫耗費大量人力進行人工二次複檢。</p>
+<p>AI 操作機制： 在視覺檢測機台端配置高解析度工業相機，並搭配客製化環形光與同軸光源。收集包含頭部裂痕、螺紋損傷（缺牙/傷牙）、邊緣變形、以及異規格混料的影像樣本。導入 2D 卷積神經網路（2D-CNN）進行物件偵測與分割。</p>
+<p>實質效益： 透過深度學習對金屬表面紋理的強大特徵辨識能力，系統能精確區分真正的裂痕與無害的加工油污。實證顯示，過殺率可直接降低 80% 以上，而漏檢率（Escape Rate）可嚴格控制在 0.01%（100 ppm）以下，大幅釋放複檢人力。</p>
+<h4 id="b-pdm">場景 B：機台預測性維護 (PdM)</h4>
+<p>產線痛點： 打頭機在連續高速運轉下，沖頭模具極易因熱應力與疲勞產生微小崩齒或斷裂。若未能即時停機，將連續生產出數萬支廢品，甚至導致碎裂模具卡入導軌，對整台設備造成不可逆的嚴重機損。</p>
+<p>AI 操作機制： 邊緣端 AI 運算單元（如部署地端工業 PC 或具備 TPU 的邊緣運算晶片）即時擷取來自 SMB 的 10 kHz 高頻成形力波形。利用異常檢測演算法，將即時波形與基準「黃金良品波形」進行動態重疊比對。</p>
+<p>邊緣推論延遲規範： 為了在極速生產環境下發揮作用，AI 模型的 P99 推論延遲（Inference Latency）必須嚴格小於 10 毫秒（&lt; 10ms）。一旦演算法偵測到連續三次衝擊波形異常（判定模具即將崩裂），邊緣端必須在下一次沖頭撞擊前，立刻向打頭機的氣壓煞車離合器發出緊急停機指令（Emergency Brake Call），實現零廢品產出。</p>
+<h3 id="33-ai-contingency-plans">3.3 高變異排程與 AI 失效應變預案 (Contingency Plans)</h3>
+<p>傳統生管排程常因急單插單、中鋼線材延遲到廠、或外包廠（熱處理、電鍍）產能突發崩潰，導致原本優化好的排程表在一小時內形同廢紙。盲目使用剛性的線性規劃（Linear Programming）或靜態基因演算法，會因模型無法應對現場變異而頻繁當機，造成現場人員對 AI 產生嚴重的信任危機。</p>
+<p>技術架構轉向：自適應多代理人系統 (MAS) 與強化學習 (RL)</p>
+<p>白皮書倡議將生管排程模型升級為「多代理人動態排程系統」。將廠內的「每台設備」、「每張訂單」、「每套模具」及「外包商車隊」各自虛擬化為具備自主決策能力的 AI 代理人（Agents）。透過強化學習不斷與產線環境互動，尋求全局產值最大化。</p>
+<p>AI 排程失效模式與人機協同應變預案：</p>
+<p>預案一：局部動態重構（Localized Rescheduling）當遭遇突發急單插單或斷料事件時，系統禁止執行耗時數小時、且會大範圍打亂現場既有派工的「全局重新計算」。AI 系統應在 1 分鐘之內，自動鎖定受影響的特定生產單元（Cell），進行局部排程重構，將震盪範圍最小化。</p>
+<p>預案二：人機協同決策（Human-in-the-Loop）系統嚴禁採取「AI 說了算」的黑箱強制派工。演算法在計算完成後，必須同時輸出 3 組具備高度透明權衡（Trade-off）的決策方案，供生管主管依經驗點選：</p>
+<table>
+<thead>
+<tr>
+<th>方案名稱</th>
+<th>決策核心邏輯</th>
+<th>適用情境</th>
+<th>現場潛在代價</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方案 1：交期優先</td>
+<td>全力滿足高毛利車用訂單達交率，將所有換模時間壓到最低。</td>
+<td>國際車廠大戶催單、面臨罰款壓力時。</td>
+<td>會犧牲掉部分低毛利標準螺絲的生產進度。</td>
+</tr>
+<tr>
+<td>方案 2：成本優先</td>
+<td>將同螺紋規格、同線徑的訂單集中連續生產。</td>
+<td>廠內熟練調機師傅嚴重缺工、希望大幅減少換模次數時。</td>
+<td>部分非緊急訂單的交期會稍微往後遞延。</td>
+</tr>
+<tr>
+<td>方案 3：外包聯動最優</td>
+<td>依據協同外包廠（如熱處理廠）目前最省能耗的爐溫排程，動態調整打頭工序的產出節奏。</td>
+<td>面對 CBAM 碳盤查，急需降低整體供應鏈範疇三累計碳排時。</td>
+<td>廠內半成品（WIP）庫存堆疊時間會稍微拉長。</td>
+</tr>
+</tbody>
+</table>
+<p>透過將決策權最終留給現場主管，並提供清晰的數據佐證，能實質消解一線同仁對 AI 系統的排斥感，建立良性的人機協同數位文化。</p>
+<h3 id="34">3.4 本單元技術與操作確實檢核表</h3>
+<table>
+<thead>
+<tr>
+<th>檢核範疇</th>
+<th>具體技術與操作要求規範</th>
+<th>檢核結果（符合/需整改）</th>
+<th>改善行動備註</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>舊機 IoT 改造</td>
+<td>一成形力與震動數據取樣頻率是否確實達到 10 kHz 以上？</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>改造預算控制</td>
+<td>單台舊型打頭/輾牙機之硬體與施工總成本是否控制在 15 萬元新台幣以內？</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AI-AOI 效能</td>
+<td>現場金屬表面瑕疵檢測之過殺率是否降低 80% 以上、漏檢率低於 0.01%？</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>預測性維護</td>
+<td>邊緣端 AI 推論之 P99 延遲是否小於 10ms，並與機台緊急煞車迴路完成電氣串接？</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>動態排程應變</td>
+<td>排程系統是否具備在 1 分鐘內完成局部重構、並輸出 3 組權衡方案之能力？</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到頂部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u62f7\u8c9d", "clipboard.copy": "\u62f7\u8c9d", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u627e\u5230\u7b26\u5408\u689d\u4ef6\u7684\u7d50\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u689d\u4ef6\u7684\u7d50\u679c", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u689d\u4ef6\u7684\u7d50\u679c", "search.result.placeholder": "\u9375\u5165\u4ee5\u958b\u59cb\u6aa2\u7d22", "search.result.term.missing": "\u7f3a\u5931", "select.version": "\u9078\u64c7\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
