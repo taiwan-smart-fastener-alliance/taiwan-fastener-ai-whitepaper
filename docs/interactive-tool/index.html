@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台灣扣件產業 AI 轉型 ROI & OEE 互動計算器</title>
+    <title>台灣扣件產業 AI 轉型 B2B 互動式智造展示平台 | 台灣智慧扣件聯盟</title>
     <!-- Google Fonts Outfit & Noto Sans TC -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,12 @@
     <style>
         :root {
             --bg-color: #0b0f19;
-            --container-bg: rgba(17, 24, 39, 0.7);
+            --container-bg: rgba(17, 24, 39, 0.75);
+            --card-bg: rgba(22, 30, 49, 0.65);
             --border-color: rgba(255, 255, 255, 0.08);
             --primary-glow: #1a73e8;
             --accent-glow: #00f2fe;
+            --secondary-glow: #7c4dff;
             --success-glow: #00e676;
             --warning-glow: #ffb300;
             --danger-glow: #ff1744;
@@ -36,8 +38,9 @@
             color: var(--text-main);
             min-height: 100vh;
             background-image: 
-                radial-gradient(at 10% 20%, rgba(26, 115, 232, 0.15) 0px, transparent 50%),
-                radial-gradient(at 90% 80%, rgba(138, 43, 226, 0.15) 0px, transparent 50%);
+                radial-gradient(at 10% 10%, rgba(0, 242, 254, 0.12) 0px, transparent 40%),
+                radial-gradient(at 90% 20%, rgba(124, 77, 255, 0.12) 0px, transparent 40%),
+                radial-gradient(at 50% 80%, rgba(234, 120, 255, 0.08) 0px, transparent 50%);
             background-attachment: fixed;
             padding: 2rem 1rem;
             line-height: 1.6;
@@ -48,75 +51,144 @@
             margin: 0 auto;
         }
 
+        /* Header Style */
         header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             position: relative;
         }
 
-        .badge {
-            background: linear-gradient(135deg, var(--primary-glow), #7c4dff);
+        .brand-badge {
+            background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
             color: white;
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 1.2rem;
             border-radius: 50px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 1px;
             display: inline-block;
             margin-bottom: 1rem;
-            box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(124, 77, 255, 0.35);
+            text-transform: uppercase;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #ffffff, #a5b4fc, var(--accent-glow));
+            font-size: 2.6rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #ffffff, #c7d2fe, var(--accent-glow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             letter-spacing: -0.5px;
         }
 
         header p {
             color: var(--text-muted);
             font-size: 1.1rem;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        /* Grid Layout */
-        .calculator-grid {
+        /* Navigation Tab Bar */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem;
+            border-radius: 16px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.9rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            color: var(--bg-color);
+            background: linear-gradient(135deg, var(--accent-glow), var(--primary-glow));
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            font-weight: 700;
+        }
+
+        /* Tab Content Section */
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Grid Layouts */
+        .grid-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
 
         @media (max-width: 968px) {
-            .calculator-grid {
+            .grid-2col {
                 grid-template-columns: 1fr;
             }
         }
 
         /* Glassmorphic Panel Card */
         .card {
-            background: var(--container-bg);
+            background: var(--card-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
             border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 50px rgba(26, 115, 232, 0.1);
+            box-shadow: 0 20px 45px rgba(0, 242, 254, 0.08);
         }
 
         .card h2 {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             display: flex;
@@ -126,11 +198,13 @@
             padding-bottom: 0.75rem;
         }
 
-        .card h2 .icon {
-            color: var(--accent-glow);
+        .card h2 svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent-glow);
         }
 
-        /* Input Controls */
+        /* Input Controls styling */
         .control-group {
             margin-bottom: 1.5rem;
         }
@@ -160,7 +234,6 @@
         }
 
         .slider-container {
-            position: relative;
             display: flex;
             align-items: center;
         }
@@ -183,15 +256,15 @@
             border-radius: 50%;
             background: linear-gradient(135deg, var(--accent-glow), var(--primary-glow));
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
             transition: transform 0.1s ease;
         }
 
         input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+            transform: scale(1.25);
         }
 
-        /* OEE Display */
+        /* OEE Ring styling */
         .oee-display-container {
             display: flex;
             flex-direction: column;
@@ -213,39 +286,28 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
             margin-bottom: 1rem;
-            transition: all 0.5s ease;
-        }
-
-        .oee-circle::before {
-            content: '';
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            z-index: -1;
             transition: all 0.5s ease;
         }
 
         .oee-circle.success {
             background: radial-gradient(circle, rgba(0, 230, 118, 0.1) 0%, rgba(0, 230, 118, 0.02) 70%);
-            box-shadow: 0 0 30px rgba(0, 230, 118, 0.2);
-            border: 1px solid rgba(0, 230, 118, 0.3);
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.25);
+            border: 2px solid rgba(0, 230, 118, 0.4);
         }
         .oee-circle.success .oee-value { color: var(--success-glow); }
 
         .oee-circle.warning {
             background: radial-gradient(circle, rgba(255, 179, 0, 0.1) 0%, rgba(255, 179, 0, 0.02) 70%);
-            box-shadow: 0 0 30px rgba(255, 179, 0, 0.2);
-            border: 1px solid rgba(255, 179, 0, 0.3);
+            box-shadow: 0 0 25px rgba(255, 179, 0, 0.25);
+            border: 2px solid rgba(255, 179, 0, 0.4);
         }
         .oee-circle.warning .oee-value { color: var(--warning-glow); }
 
         .oee-circle.danger {
             background: radial-gradient(circle, rgba(255, 23, 68, 0.1) 0%, rgba(255, 23, 68, 0.02) 70%);
-            box-shadow: 0 0 30px rgba(255, 23, 68, 0.2);
-            border: 1px solid rgba(255, 23, 68, 0.3);
+            box-shadow: 0 0 25px rgba(255, 23, 68, 0.25);
+            border: 2px solid rgba(255, 23, 68, 0.4);
         }
         .oee-circle.danger .oee-value { color: var(--danger-glow); }
 
@@ -285,16 +347,21 @@
             border-radius: 12px;
             padding: 1rem;
             text-align: center;
+            transition: background 0.3s;
+        }
+
+        .result-block:hover {
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .result-title {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 0.25rem;
         }
 
         .result-value {
-            font-size: 1.4rem;
+            font-size: 1.45rem;
             font-weight: 700;
             color: white;
         }
@@ -310,75 +377,368 @@
         /* SVG Interactive Chart */
         .chart-container {
             margin-top: 1rem;
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(255, 255, 255, 0.015);
             border: 1px solid rgba(255, 255, 255, 0.03);
             border-radius: 15px;
-            padding: 1rem;
+            padding: 1.2rem;
         }
 
         .chart-title {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 0.75rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .chart-legend {
             display: flex;
             gap: 1rem;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.4rem;
         }
 
         .legend-color {
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(26, 115, 232, 0.15) 0%, rgba(124, 77, 255, 0.15) 100%);
-            border: 1px solid rgba(26, 115, 232, 0.2);
-            border-radius: 24px;
-            padding: 2.5rem;
-            text-align: center;
+        /* Tab 2 Oscilloscope Bezel */
+        .oscilloscope-panel {
+            background: #060911;
+            border: 4px solid #1e293b;
+            border-radius: 16px;
             position: relative;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 10px 30px rgba(0, 0, 0, 0.5);
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 1.5rem;
         }
 
-        .cta-section::before {
-            content: '';
+        .oscilloscope-header {
+            background: #111827;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1e293b;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .status-indicators {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .led-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .led-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #374151;
+            transition: all 0.3s;
+        }
+
+        .led-dot.normal.active {
+            background-color: var(--success-glow);
+            box-shadow: 0 0 8px var(--success-glow);
+        }
+
+        .led-dot.anomaly.active {
+            background-color: var(--danger-glow);
+            box-shadow: 0 0 8px var(--danger-glow);
+            animation: pulse-danger 0.8s infinite;
+        }
+
+        .led-dot.drift.active {
+            background-color: var(--warning-glow);
+            box-shadow: 0 0 8px var(--warning-glow);
+            animation: pulse-warning 1s infinite;
+        }
+
+        @keyframes pulse-danger {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes pulse-warning {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .oscilloscope-screen {
+            height: 200px;
+            position: relative;
+        }
+
+        .grid-overlay {
             position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 60%);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 230, 118, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 230, 118, 0.04) 1px, transparent 1px);
             pointer-events: none;
+            z-index: 1;
         }
 
-        .cta-section h2 {
+        .danger-line-lbl {
+            position: absolute;
+            right: 10px;
+            top: 30px;
+            color: var(--danger-glow);
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+            background: rgba(6, 9, 17, 0.8);
+            padding: 1px 4px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 23, 68, 0.2);
+        }
+
+        /* Tab 2 Metrics cards */
+        .pdm-metrics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .pdm-metrics-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .metric-glow-box {
+            background: rgba(6, 9, 17, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .metric-glow-box h4 {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-glow-box .metric-value {
             font-size: 1.8rem;
             font-weight: 800;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(to right, white, #e0e7ff, var(--accent-glow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: monospace;
         }
 
-        .cta-section p {
+        .metric-glow-box .metric-unit {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-left: 2px;
+        }
+
+        /* Tab 3 Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .service-card.pkg-a::before { background: #38bdf8; }
+        .service-card.pkg-b::before { background: #4facfe; }
+        .service-card.pkg-c::before { background: #7c4dff; }
+        .service-card.pkg-d::before { background: #00e676; }
+        .service-card.pkg-e::before { background: #ea78ff; }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .pkg-letter {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .pkg-a .pkg-letter { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .pkg-b .pkg-letter { background: rgba(79, 172, 254, 0.15); color: #4facfe; border: 1px solid rgba(79, 172, 254, 0.3); }
+        .pkg-c .pkg-letter { background: rgba(124, 77, 255, 0.15); color: #7c4dff; border: 1px solid rgba(124, 77, 255, 0.3); }
+        .pkg-d .pkg-letter { background: rgba(0, 230, 118, 0.15); color: #00e676; border: 1px solid rgba(0, 230, 118, 0.3); }
+        .pkg-e .pkg-letter { background: rgba(234, 120, 255, 0.15); color: #ea78ff; border: 1px solid rgba(234, 120, 255, 0.3); }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-price {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--accent-glow);
+            margin-bottom: 1rem;
+            font-family: var(--font-outfit);
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .service-deliverables {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .service-deliverables li {
+            position: relative;
+            padding-left: 20px;
             color: #d1d5db;
-            max-width: 650px;
-            margin: 0 auto 1.5rem;
-            font-size: 1rem;
         }
 
+        .service-deliverables li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-glow);
+            font-weight: bold;
+        }
+
+        .btn-select-pkg {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: white;
+            padding: 0.7rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-select-pkg:hover {
+            background: linear-gradient(135deg, var(--accent-glow), var(--primary-glow));
+            color: var(--bg-color);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25);
+            font-weight: 700;
+        }
+
+        /* Industrial Booking Form */
+        .booking-card {
+            max-width: 750px;
+            margin: 0 auto 3rem;
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .booking-form .form-group.full-width {
+            grid-column: 1 / span 2;
+        }
+
+        @media (max-width: 600px) {
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+            .booking-form .form-group.full-width {
+                grid-column: 1;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #d1d5db;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            background: rgba(6, 9, 17, 0.5);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.15);
+        }
+
+        .form-group select option {
+            background: var(--bg-color);
+            color: white;
+        }
+
+        /* Actions and Buttons styling */
         .btn {
             display: inline-block;
             background: linear-gradient(135deg, var(--accent-glow), var(--primary-glow));
@@ -388,20 +748,195 @@
             border-radius: 50px;
             text-decoration: none;
             box-shadow: 0 5px 25px rgba(0, 242, 254, 0.35);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            text-align: center;
         }
 
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0, 242, 254, 0.5);
-            color: #0b0f19;
         }
 
         .btn:active {
             transform: translateY(0);
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.04);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+
+        .btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+
+        .btn.btn-danger {
+            background: linear-gradient(135deg, var(--danger-glow), #c62828);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 23, 68, 0.3);
+        }
+
+        .btn.btn-danger:hover {
+            box-shadow: 0 8px 25px rgba(255, 23, 68, 0.45);
+        }
+
+        /* Booking Button centered */
+        .booking-submit-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        /* Glassmorphic Toast Notifications System */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+            max-width: 420px;
+            width: calc(100vw - 40px);
+        }
+
+        .toast {
+            pointer-events: auto;
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.hide {
+            transform: translateX(120%);
+            opacity: 0;
+        }
+
+        .toast-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        .toast.success { border-left: 4px solid var(--success-glow); }
+        .toast.success .toast-icon { background: rgba(0, 230, 118, 0.15); color: var(--success-glow); }
+
+        .toast.info { border-left: 4px solid var(--accent-glow); }
+        .toast.info .toast-icon { background: rgba(0, 242, 254, 0.15); color: var(--accent-glow); }
+
+        .toast.warning { border-left: 4px solid var(--warning-glow); }
+        .toast.warning .toast-icon { background: rgba(255, 179, 0, 0.15); color: var(--warning-glow); }
+
+        .toast.danger { border-left: 4px solid var(--danger-glow); }
+        .toast.danger .toast-icon { background: rgba(255, 23, 68, 0.15); color: var(--danger-glow); }
+
+        .toast-body {
+            flex-grow: 1;
+        }
+
+        .toast-body h5 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .toast-body p {
+            font-size: 0.85rem;
+            color: #d1d5db;
+        }
+
+        .toast-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            padding: 0 2px;
+        }
+
+        .toast-close:hover {
+            color: white;
+        }
+
+        /* Banner styles for alarm status */
+        .pdm-alert-banner {
+            background: rgba(255, 23, 68, 0.1);
+            border: 1px solid rgba(255, 23, 68, 0.3);
+            border-radius: 12px;
+            padding: 0.9rem;
+            text-align: center;
+            color: var(--danger-glow);
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            animation: pulse-border 1.5s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(255, 23, 68, 0.3); }
+            50% { border-color: rgba(255, 23, 68, 0.8); }
+        }
+
+        /* Monetization CTA section in footer area */
+        .bottom-cta {
+            margin-top: 3rem;
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.15) 0%, rgba(124, 77, 255, 0.15) 100%);
+            border: 1px solid rgba(26, 115, 232, 0.25);
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .bottom-cta h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(to right, white, #e0e7ff, var(--accent-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bottom-cta p {
+            color: #d1d5db;
+            max-width: 750px;
+            margin: 0 auto 1.5rem;
+            font-size: 1.05rem;
         }
 
         /* Footer */
@@ -429,199 +964,457 @@
 
 <div class="container">
     <header>
-        <span class="badge">CBAM 2026 READY · OPEN SOURCE</span>
-        <h1>台灣扣件產業 AI 轉型 ROI & OEE 試算系統</h1>
-        <p>基於《台灣扣件產業 AI 轉型白皮書》第四單元量化指標體系，為您的工廠提供即時的整體設備效率（OEE）多因子拆解與 5 年期財務回收率精算。</p>
+        <span class="brand-badge">CBAM 2026 Ready · Industrial AI</span>
+        <h1>台灣扣件與金屬加工業 AI 轉型智造演示平台</h1>
+        <p>基於《台灣扣件產業 AI 轉型白皮書》的量化核心模型，結合設備 OEE/ROI 生態試算、10 kHz 邊緣高頻預測性維護模擬，以及精準的變現產品服務預約。</p>
     </header>
 
-    <div class="calculator-grid">
-        <!-- OEE Simulator -->
-        <div class="card">
-            <h2>
-                <span class="icon">⚡</span>
-                OEE 稼動率與品質模擬器
-            </h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
-                調整下方機台運行參數，模擬導入預測性維護（PdM）與 AI-AOI 檢測後對 OEE 三因子產出的動態影響。
-            </p>
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav">
+        <button class="tab-btn active" onclick="switchTab('tab-oee')">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+            OEE & ROI 試算模型
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-pdm')">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5h-2v-2h2v2zm0-4.5h-2V7h2v6z"/></svg>
+            高頻設備監測 (Edge PdM)
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-booking')">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            智造服務與專案預約
+        </button>
+    </nav>
 
-            <div class="control-group">
-                <div class="control-header">
-                    <label for="slider-avail">時間稼動率 (Availability, A)</label>
-                    <span class="value-badge" id="val-avail">80.0%</span>
+    <!-- TAB 1: OEE & ROI -->
+    <div id="tab-oee" class="tab-content active">
+        <div class="grid-2col">
+            <!-- OEE Simulator -->
+            <div class="card">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    OEE 稼動率與品質模擬器
+                </h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+                    調整下方生產線物理參數，模擬導入預測性維護（PdM）與 AI-AOI 檢測後對整體設備效率（OEE）的動態關聯。
+                </p>
+
+                <div class="control-group">
+                    <div class="control-header">
+                        <label for="slider-avail">時間稼動率 (Availability, A)</label>
+                        <span class="value-badge" id="val-avail">80.0%</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="slider-avail" min="50" max="99" value="80" step="0.5">
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                        透過邊緣模具殘餘壽命（RUL）分析與維護預防，降低無預期停機損失。
+                    </div>
                 </div>
-                <div class="slider-container">
-                    <input type="range" id="slider-avail" min="50" max="99" value="80" step="0.5">
+
+                <div class="control-group">
+                    <div class="control-header">
+                        <label for="slider-perf">生產性能率 (Performance, P)</label>
+                        <span class="value-badge" id="val-perf">85.0%</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="slider-perf" min="50" max="99" value="85" step="0.5">
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                        高速打頭衝擊應力反饋，確保機台在安全受力極限下發揮高頻額定產速。
+                    </div>
                 </div>
-                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
-                    透過 AI 預測模具壽命與智慧排程，大幅減少非預期停機損失。
+
+                <div class="control-group">
+                    <div class="control-header">
+                        <label for="slider-qual">品質合格率 (Quality, Q)</label>
+                        <span class="value-badge" id="val-qual">97.0%</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="slider-qual" min="80" max="99.9" value="97" step="0.1">
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                        AI 模組線上即時偵測與出貨前全檢，將扣件漏檢不良率壓降至 PPM 級別。
+                    </div>
+                </div>
+
+                <div class="oee-display-container">
+                    <div class="oee-circle" id="oee-circle-element">
+                        <span class="oee-value" id="oee-result">65.9%</span>
+                        <span class="oee-label">OEE 綜合值</span>
+                    </div>
+                    <div class="oee-formula" id="oee-formula-txt">
+                        OEE = 80.0% × 85.0% × 97.0%
+                    </div>
+                    <div style="font-size: 0.85rem; text-align: center; margin-top: 8px; font-weight: bold;" id="oee-status-txt">
+                        低於世界級標準 (85%)，產線存在隱形產能浪費。
+                    </div>
                 </div>
             </div>
 
-            <div class="control-group">
-                <div class="control-header">
-                    <label for="slider-perf">生產性能率 (Performance, P)</label>
-                    <span class="value-badge" id="val-perf">85.0%</span>
-                </div>
-                <div class="slider-container">
-                    <input type="range" id="slider-perf" min="50" max="99" value="85" step="0.5">
-                </div>
-                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
-                    打頭成形力即時反饋，保證飛輪在安全閾值下發揮額定最高產速。
-                </div>
-            </div>
+            <!-- CapEx & ROI Calculator -->
+            <div class="card">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 15.5h-2V16h2v2.5zm0-4.5h-2V7h2v7z"/></svg>
+                    5 年財務回收期 (ROI) 精算模型
+                </h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+                    基於白皮書財務效益精算架構，動態估算您的工廠在設備聯網與 AI 改裝後的投資報酬指標。
+                </p>
 
-            <div class="control-group">
-                <div class="control-header">
-                    <label for="slider-qual">品質合格率 (Quality, Q)</label>
-                    <span class="value-badge" id="val-qual">97.0%</span>
+                <div class="control-group">
+                    <div class="control-header">
+                        <label for="slider-machines">工廠打頭 / 輾牙設備數量</label>
+                        <span class="value-badge" id="val-machines">30 台</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="slider-machines" min="5" max="100" value="30" step="5">
+                    </div>
                 </div>
-                <div class="slider-container">
-                    <input type="range" id="slider-qual" min="80" max="99.9" value="97" step="0.1">
-                </div>
-                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
-                    AI-AOI 全檢分流，將車用扣件不良品漏檢率壓縮至 100 ppm 以下。
-                </div>
-            </div>
 
-            <div class="oee-display-container">
-                <div class="oee-circle" id="oee-circle-element">
-                    <span class="oee-value" id="oee-result">65.9%</span>
-                    <span class="oee-label">OEE 綜合值</span>
+                <div class="control-group">
+                    <div class="control-header">
+                        <label for="slider-init-loss">導入前平均不良率</label>
+                        <span class="value-badge" id="val-init-loss">3.0%</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="slider-init-loss" min="1.0" max="8.0" value="3.0" step="0.1">
+                    </div>
                 </div>
-                <div class="oee-formula" id="oee-formula-txt">
-                    OEE = 80.0% × 85.0% × 97.0%
+
+                <div class="control-group">
+                    <div class="control-header">
+                        <label for="slider-capex">智慧改造總投入額 (CapEx)</label>
+                        <span class="value-badge" id="val-capex">NT$ 1,500 萬</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="slider-capex" min="200" max="3000" value="1500" step="50">
+                    </div>
                 </div>
-                <div style="font-size: 0.8rem; text-align: center; margin-top: 8px;" id="oee-status-txt">
-                    低於黃金標準 (85%)，工廠存在隱性產能浪費。
+
+                <div class="roi-results-grid">
+                    <div class="result-block">
+                        <div class="result-title">每年品質損失節省</div>
+                        <div class="result-value" id="roi-annual-savings">NT$ 522 萬</div>
+                    </div>
+                    <div class="result-block">
+                        <div class="result-title">預計回收年限 (Payback)</div>
+                        <div class="result-value highlight" id="roi-payback">3.6 年</div>
+                    </div>
+                    <div class="result-block">
+                        <div class="result-title">5 年累計淨節省成本</div>
+                        <div class="result-value" style="color: var(--success-glow);" id="roi-accum-savings">NT$ 630 萬</div>
+                    </div>
+                    <div class="result-block">
+                        <div class="result-title">改造內部報酬率 (IRR)</div>
+                        <div class="result-value" id="roi-irr">24.8%</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- CapEx & ROI Calculator -->
-        <div class="card">
+        <!-- Payback Curve Visualization -->
+        <div class="card" style="margin-bottom: 1.5rem;">
             <h2>
-                <span class="icon">📊</span>
-                5年財務回收期 (ROI) 精算模型
+                <svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L3 15.58l.5 2.91z"/></svg>
+                5 年期轉型成本與回收黃金交叉曲線 (Payback Curve)
             </h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
-                以白皮書 4.3 財務假設為基準，動態設定您工廠的規模、初始投資（CapEx）與良率指標。
-            </p>
-
-            <div class="control-group">
-                <div class="control-header">
-                    <label for="slider-machines">工廠打頭/輾牙機數量</label>
-                    <span class="value-badge" id="val-machines">30 台</span>
-                </div>
-                <div class="slider-container">
-                    <input type="range" id="slider-machines" min="5" max="100" value="30" step="5">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="control-header">
-                    <label for="slider-init-loss">轉型前平均不良率</label>
-                    <span class="value-badge" id="val-init-loss">3.0%</span>
-                </div>
-                <div class="slider-container">
-                    <input type="range" id="slider-init-loss" min="1.0" max="8.0" value="3.0" step="0.1">
+            <div class="chart-title">
+                <span>累計支出與品質損失對照 (單位：新台幣萬元)</span>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ff1744;"></div>
+                        <span>傳統模式累計品質損失</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #00f2fe;"></div>
+                        <span>AI 智造模式累計總投入</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="control-group">
-                <div class="control-header">
-                    <label for="slider-capex">轉型初始總投入額 (CapEx)</label>
-                    <span class="value-badge" id="val-capex">NT$ 1,500 萬</span>
-                </div>
-                <div class="slider-container">
-                    <input type="range" id="slider-capex" min="200" max="3000" value="1500" step="50">
-                </div>
-            </div>
+            <div class="chart-container">
+                <svg id="payback-chart" viewBox="0 0 600 240" style="width: 100%; height: auto; overflow: visible;">
+                    <!-- Grid Lines -->
+                    <line x1="50" y1="20" x2="550" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="50" y1="70" x2="550" y2="70" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="50" y1="120" x2="550" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="50" y1="170" x2="550" y2="170" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+                    <line x1="50" y1="210" x2="550" y2="210" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"></line>
 
-            <div class="roi-results-grid">
-                <div class="result-block">
-                    <div class="result-title">每年品質損失節省</div>
-                    <div class="result-value" id="roi-annual-savings">NT$ 522 萬</div>
-                </div>
-                <div class="result-block">
-                    <div class="result-title">預計回收年限 (Payback)</div>
-                    <div class="result-value highlight" id="roi-payback">3.6 年</div>
-                </div>
-                <div class="result-block">
-                    <div class="result-title">5 年累計淨節省成本</div>
-                    <div class="result-value" style="color: var(--success-glow);" id="roi-accum-savings">NT$ 630 萬</div>
-                </div>
-                <div class="result-block">
-                    <div class="result-title">轉型內部報酬率 (IRR)</div>
-                    <div class="result-value" id="roi-irr">24.8%</div>
-                </div>
+                    <!-- X Axis Labels -->
+                    <text x="50" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 1 年</text>
+                    <text x="175" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 2 年</text>
+                    <text x="300" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 3 年</text>
+                    <text x="425" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 4 年</text>
+                    <text x="550" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 5 年</text>
+
+                    <!-- Y Axis Labels -->
+                    <text x="40" y="213" fill="#9ca3af" font-size="9" text-anchor="end">0</text>
+                    <text x="40" y="173" fill="#9ca3af" font-size="9" text-anchor="end">1,000</text>
+                    <text x="40" y="123" fill="#9ca3af" font-size="9" text-anchor="end">2,000</text>
+                    <text x="40" y="73" fill="#9ca3af" font-size="9" text-anchor="end">3,000</text>
+                    <text x="40" y="23" fill="#9ca3af" font-size="9" text-anchor="end">4,000</text>
+
+                    <!-- Traditional Loss Line (Red) -->
+                    <path id="trad-line" d="M 50 180 L 175 150 L 300 120 L 425 90 L 550 60" fill="none" stroke="#ff1744" stroke-width="3" stroke-linecap="round"></path>
+                    
+                    <!-- AI Smart Manufacturing Line (Blue) -->
+                    <path id="ai-line" d="M 50 100 L 175 95 L 300 90 L 425 85 L 550 80" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round"></path>
+
+                    <!-- Intersection (Break-even) Circle -->
+                    <circle id="intersection-point" cx="375" cy="87.5" r="6" fill="#00e676" stroke="#0b0f19" stroke-width="2"></circle>
+                    <text id="intersection-lbl" x="375" y="72" fill="#00e676" font-size="9.5" font-weight="bold" text-anchor="middle">交叉平衡點: 3.6年</text>
+                </svg>
             </div>
         </div>
     </div>
 
-    <!-- Payback Curve Visualization -->
-    <div class="card" style="margin-bottom: 3rem;">
-        <h2>
-            <span class="icon">📈</span>
-            5 年期轉型成本與回收黃金交叉曲線 (Payback Curve)
-        </h2>
-        <div class="chart-title">
-            <span>累計支出與品質損失對照 (單位：新台幣萬元)</span>
-            <div class="chart-legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #ff1744;"></div>
-                    <span>傳統模式累計損失</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #00f2fe;"></div>
-                    <span>AI 智造模式累計總投入</span>
-                </div>
-            </div>
+    <!-- TAB 2: HIGH-FREQUENCY PDM MONITORING -->
+    <div id="tab-pdm" class="tab-content">
+        <!-- Warning alert box when anomalous stress is active -->
+        <div id="pdm-alert-box" class="pdm-alert-banner">
+            ⚠️ 偵測到連續成形應力超標與特徵波形偏差！模具微裂痕/局部崩角預警已觸發，請立即採取應對措施。
         </div>
 
-        <div class="chart-container">
-            <svg id="payback-chart" viewBox="0 0 600 240" style="width: 100%; height: auto; overflow: visible;">
-                <!-- Grid Lines -->
-                <line x1="50" y1="20" x2="550" y2="20" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
-                <line x1="50" y1="70" x2="550" y2="70" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
-                <line x1="50" y1="120" x2="550" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
-                <line x1="50" y1="170" x2="550" y2="170" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
-                <line x1="50" y1="210" x2="550" y2="210" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"></line>
-
-                <!-- X Axis Labels -->
-                <text x="50" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 1 年</text>
-                <text x="175" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 2 年</text>
-                <text x="300" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 3 年</text>
-                <text x="425" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 4 年</text>
-                <text x="550" y="230" fill="#9ca3af" font-size="10" text-anchor="middle">第 5 年</text>
-
-                <!-- Y Axis Labels -->
-                <text x="40" y="213" fill="#9ca3af" font-size="9" text-anchor="end">0</text>
-                <text x="40" y="173" fill="#9ca3af" font-size="9" text-anchor="end">1,000</text>
-                <text x="40" y="123" fill="#9ca3af" font-size="9" text-anchor="end">2,000</text>
-                <text x="40" y="73" fill="#9ca3af" font-size="9" text-anchor="end">3,000</text>
-                <text x="40" y="23" fill="#9ca3af" font-size="9" text-anchor="end">4,000</text>
-
-                <!-- Traditional Loss Line (Red) -->
-                <path id="trad-line" d="M 50 180 L 175 150 L 300 120 L 425 90 L 550 60" fill="none" stroke="#ff1744" stroke-width="3" stroke-linecap="round"></path>
+        <div class="grid-2col">
+            <!-- Simulated Oscilloscope Screen -->
+            <div class="card" style="padding: 1.5rem;">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                    10 kHz 打頭壓力動態波形示波器
+                </h2>
                 
-                <!-- AI Smart Manufacturing Line (Blue) -->
-                <path id="ai-line" d="M 50 100 L 175 95 L 300 90 L 425 85 L 550 80" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round"></path>
+                <div class="oscilloscope-panel">
+                    <div class="oscilloscope-header">
+                        <span>CHANNEL 1: FORGING FORCE SENSOR</span>
+                        <div class="status-indicators">
+                            <div class="led-indicator">
+                                <div id="led-normal" class="led-dot normal active"></div>
+                                <span style="color: var(--success-glow);">Normal</span>
+                            </div>
+                            <div class="led-indicator">
+                                <div id="led-drift" class="led-dot drift"></div>
+                                <span style="color: var(--warning-glow);">Drift</span>
+                            </div>
+                            <div class="led-indicator">
+                                <div id="led-anomaly" class="led-dot anomaly"></div>
+                                <span style="color: var(--danger-glow);">Alarm</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oscilloscope-screen">
+                        <div class="grid-overlay"></div>
+                        <div class="danger-line-lbl">DANGER THRESHOLD (150 kN)</div>
+                        <!-- Danger threshold dotted line -->
+                        <svg style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;">
+                            <line x1="0" y1="63" x2="600" y2="63" stroke="rgba(255, 23, 68, 0.4)" stroke-width="2" stroke-dasharray="5,5"></line>
+                            <!-- Continuous moving waveform -->
+                            <path id="oscilloscope-path" d="M 0 170" fill="none" stroke="#00e676" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transition: stroke 0.3s;"></path>
+                        </svg>
+                    </div>
+                </div>
 
-                <!-- Intersection (Break-even) Circle -->
-                <circle id="intersection-point" cx="375" cy="87.5" r="6" fill="#00e676" stroke="#0b0f19" stroke-width="2"></circle>
-                <text id="intersection-lbl" x="375" y="72" fill="#00e676" font-size="9.5" font-weight="bold" text-anchor="middle">交叉平衡點: 3.6年</text>
-            </svg>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn" id="btn-pdm-normal" onclick="setPdmState('normal')">正常運作模式</button>
+                    <button class="btn btn-danger" id="btn-pdm-anomaly" onclick="setPdmState('anomaly')">模擬應力異常漂移</button>
+                    <button class="btn secondary" id="btn-pdm-retrain" onclick="retrainModel()">
+                        <span id="retrain-txt">自適應模型重訓</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Edge AI PdM Analysis Info -->
+            <div class="card">
+                <h2>
+                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
+                    邊緣端預測性維護 (Edge AI) 核心指標
+                </h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+                    利用部署於打頭機旁的邊緣工控機（Edge IPC）採集 10 kHz 高頻應變特徵，通過 CNN-Autoencoder 自動化模型，在地端 10ms 內完成物理波形特徵分割與良率推論。
+                </p>
+
+                <div class="pdm-metrics-container">
+                    <div class="metric-glow-box">
+                        <h4>當前最大應力</h4>
+                        <div>
+                            <span class="metric-value" id="pdm-max-force" style="color: var(--success-glow);">116</span>
+                            <span class="metric-unit">kN</span>
+                        </div>
+                    </div>
+                    <div class="metric-glow-box">
+                        <h4>模具殘存壽命 (RUL)</h4>
+                        <div>
+                            <span class="metric-value" id="pdm-rul" style="color: var(--success-glow);">94.2</span>
+                            <span class="metric-unit">%</span>
+                        </div>
+                    </div>
+                    <div class="metric-glow-box">
+                        <h4>特徵漂移度 (PSI)</h4>
+                        <div>
+                            <span class="metric-value" id="pdm-psi" style="color: var(--success-glow);">0.03</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1.2rem; margin-top: 1rem;">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem; color: white;">AI 運作特徵與說明</h4>
+                    <ul style="list-style: none; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; color: var(--text-muted);">
+                        <li id="pdm-explain-1">✓ <b>黃金壓力特徵資料庫</b>：正常運作時，每次敲擊均能精準貼合雙峰式沖頭敲擊曲線。</li>
+                        <li id="pdm-explain-2">✓ <b>PSI (群體穩定性指標)</b>：指標 &lt; 0.1 代表完全對標，當 &gt; 0.25 時代表原料變更或模具應變偏離，觸發本地微調警報。</li>
+                        <li id="pdm-explain-3">✓ <b>模具安全防護煞車</b>：當高頻應力越過 150 kN 安全紅線時，地端系統會發出毫秒級訊號強致煞車停機，防止高速崩模對昂貴機械底座造成毀滅性破壞。</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2>解鎖政府最高 500 萬元補助資源！</h2>
-        <p>基於白皮書第六單元的研究，中小型扣件廠自行編撰計畫書的拒件率高達 55.3%。台灣智慧扣件聯盟 (Smart Fastener Alliance) 攜手 <b>鳳凰 AI 轉型小組</b>，為您提供一對一的 OT/IT 工廠數據就緒度審計，並輔導對接經濟部產發署之轉型補助經費。</p>
-        <button class="btn" onclick="alert('感謝您的諮詢！我們的 AI 轉型顧問將在 24 小時內，提供您專屬的工廠轉型可行性診斷報告與補助對接手冊！')">預約免費工廠就緒度審查 (OT/IT Audit)</button>
+    <!-- TAB 3: B2B MONETIZATION PACKAGES & BOOKING -->
+    <div id="tab-booking" class="tab-content">
+        <header style="margin-bottom: 2rem;">
+            <h2>台灣扣件與金屬加工業 ── AI 數據化改造核心產品服務包</h2>
+            <p style="font-size: 0.95rem; max-width: 800px; margin: 0.5rem auto 0;">我們不只幫老闆抓出老舊機台的產能黑洞與品質損失，更一併代筆撰寫產發署低碳智造補助計畫，最高申請補助款 500 萬元！讓您以政府補助預算直接覆蓋改造的投入成本。</p>
+        </header>
+
+        <!-- Services packages cards grid -->
+        <div class="services-grid">
+            <!-- Package A -->
+            <div class="service-card pkg-a">
+                <div class="pkg-letter">A</div>
+                <h3>數據基礎健檢包</h3>
+                <div class="service-price">NT$ 8萬 - 15萬</div>
+                <p>協助企業主與管理團隊全面清查隱形產能黑洞，盤點舊型設備電氣與通訊數位化就緒度。</p>
+                <ul class="service-deliverables">
+                    <li>廠區通訊與設備就緒度診斷報告</li>
+                    <li>傳統凸輪機台 SMB 改裝可行性表</li>
+                    <li>生產合格率與突發停機 Baseline</li>
+                    <li>CBAM / 碳足跡資料缺口曝險評估</li>
+                    <li>經濟部產發署補助計畫對接策略書</li>
+                </ul>
+                <button class="btn-select-pkg" onclick="selectPackage('A', '扣件廠 AI / 碳 / 設備數據基礎健檢包')">選擇此方案</button>
+            </div>
+
+            <!-- Package B -->
+            <div class="service-card pkg-b">
+                <div class="pkg-letter">B</div>
+                <h3>主力示範線 IoT 改造</h3>
+                <div class="service-price">NT$ 60萬 - 150萬</div>
+                <p>在 3-6 個月內為 1 至 3 台打頭機或輾牙機安裝非破壞性高頻感測器，快速建立生產看板。</p>
+                <ul class="service-deliverables">
+                    <li>無損加裝高頻應變規與 CT 電流感測</li>
+                    <li>10 kHz - 20 kHz 高頻採集 SMB 部署</li>
+                    <li>地端 PostgreSQL 毫秒級資料庫建置</li>
+                    <li>現場端 OEE 稼動率即時視覺化看板</li>
+                    <li>ERP/MES 自動化批次生產履歷系統</li>
+                </ul>
+                <button class="btn-select-pkg" onclick="selectPackage('B', '主力示範線 IoT Retrofit 改造與 OEE 看板')">選擇此方案</button>
+            </div>
+
+            <!-- Package C -->
+            <div class="service-card pkg-c">
+                <div class="pkg-letter">C</div>
+                <h3>AI 預測性維護 (PdM) PoC</h3>
+                <div class="service-price">NT$ 120萬 - 300萬</div>
+                <p>針對飽受高速連續打頭崩模、模具壽命難期之出口大廠，建構邊緣異常偵測與自動煞車整合。</p>
+                <ul class="service-deliverables">
+                    <li>黃金良品應力波形基準資料庫</li>
+                    <li>地端邊緣 Autoencoder 異常預警模型</li>
+                    <li>模具 RUL 預測與連續崩模停機煞車</li>
+                    <li>視覺化模型漂移監控與 PSI 指標模組</li>
+                    <li>承諾降低停機 15% 與報廢 20%</li>
+                </ul>
+                <button class="btn-select-pkg" onclick="selectPackage('C', '邊緣端 AI 品質預警與模具預測性維護 PoC')">選擇此方案</button>
+            </div>
+
+            <!-- Package D -->
+            <div class="service-card pkg-d">
+                <div class="pkg-letter">D</div>
+                <h3>CBAM 碳排動態資料模組</h3>
+                <div class="service-price">NT$ 30萬 - 100萬</div>
+                <p>為出口廠商自動建立符合 ISO 14067 的製程能耗動態攤提系統，一鍵生成合規 PCF 碳足跡報告。</p>
+                <ul class="service-deliverables">
+                    <li>kgCO₂e/kpcs 螺絲碳足跡自動計算</li>
+                    <li>空調照明與廠務範疇二能耗攤提系統</li>
+                    <li>外包酸洗/電鍍廠簡易 Web 上傳 API</li>
+                    <li>一鍵產出合規產品碳足跡（PCF）報告</li>
+                    <li>國際買家碳排放稽核答辯現場支持</li>
+                </ul>
+                <button class="btn-select-pkg" onclick="selectPackage('D', 'CBAM / PCF 自動化動態資料模組')">選擇此方案</button>
+            </div>
+
+            <!-- Package E -->
+            <div class="service-card pkg-e">
+                <div class="pkg-letter">E</div>
+                <h3>AI 常態運維與治理 (月費)</h3>
+                <div class="service-price">NT$ 2萬 - 10萬 / 月</div>
+                <p>為廠內無常駐資料科學家之中小扣件廠，提供長期遠端與實地 AI 算法運維保障與持續優化。</p>
+                <ul class="service-deliverables">
+                    <li>每月全廠 OEE 改善與能耗優化報告</li>
+                    <li>配合原料/溫度之模型定期自動重訓</li>
+                    <li>現場物理感測器例行巡檢與精度校正</li>
+                    <li>現場師傅與管理層種子教官培訓課程</li>
+                    <li>政府專案結案審查答辯與流動資料整理</li>
+                </ul>
+                <button class="btn-select-pkg" onclick="selectPackage('E', '常態型資料維運與 AI 治理月費訂閱')">選擇此方案</button>
+            </div>
+        </div>
+
+        <!-- Dynamic booking form panel -->
+        <div class="card booking-card" id="booking-section">
+            <h2>
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                AI 轉型現場數據就緒度審計 (OT/IT Audit) 線上預約
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">
+                請填寫您的工廠基礎資訊，我們將在 24 小時內與您聯繫確認，並派發配合手冊。
+            </p>
+
+            <form class="booking-form" onsubmit="submitBooking(event)">
+                <div class="form-group">
+                    <label for="company-name">企業 / 工廠名稱 *</label>
+                    <input type="text" id="company-name" required placeholder="例如：岡山扣件工業股份有限公司">
+                </div>
+                <div class="form-group">
+                    <label for="contact-name">聯絡窗口姓名 *</label>
+                    <input type="text" id="contact-name" required placeholder="例如：陳廠長 或 李經理">
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">聯絡電話 (手機或分機) *</label>
+                    <input type="text" id="contact-phone" required placeholder="例如：0912-345678 或 07-621xxxx#32">
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">聯絡電子信箱 *</label>
+                    <input type="email" id="contact-email" required placeholder="例如：factory@screwmaker.tw">
+                </div>
+                <div class="form-group full-width">
+                    <label for="booking-package">預約詢問之產品服務包</label>
+                    <select id="booking-package">
+                        <option value="A">商品 A：數據基礎健檢包 (NT$ 8萬 - 15萬)</option>
+                        <option value="B">商品 B：主力示範線 IoT 改造 (NT$ 60萬 - 150萬)</option>
+                        <option value="C">商品 C：AI 預測性維護 PoC (NT$ 120萬 - 300萬)</option>
+                        <option value="D">商品 D：CBAM 能耗碳排模組 (NT$ 30萬 - 100萬)</option>
+                        <option value="E">商品 E：AI 常態運維與治理月費 (NT$ 2萬 - 10萬/月)</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="factory-scale">工廠現有機台規模與特殊需求說明 (選填)</label>
+                    <textarea id="factory-scale" rows="3" placeholder="例如：主要生產打頭機 20 台，輾牙機 15 台，出貨以歐美車規螺絲為主，期望改善斷模率並建立生管看板。"></textarea>
+                </div>
+                
+                <div class="booking-submit-container full-width">
+                    <button type="submit" class="btn">送出轉型顧問諮詢預約並對接補助</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Monetization Promotion Section -->
+    <section class="bottom-cta">
+        <h2>解鎖政府產發署低碳智慧升級補助！</h2>
+        <p>基於白皮書第六單元的申請實戰分析，中小型扣件廠自行編寫低碳升級計畫書的拒件率極高（55.3%）。台灣智慧扣件聯盟轉型專家小組攜手<b>鳳凰 AI 實驗室</b>，能為符合資格的業者提供一對一的實地就緒度審計，並全程輔導您對接政府的無償補助款，最高可獲 500 萬元！</p>
+        <button class="btn" onclick="switchTab('tab-booking'); document.getElementById('booking-section').scrollIntoView({behavior: 'smooth'}); showToast('請於下方表單填寫資訊，顧問將優先聯絡！', 'info')">預約一對一實地數位化就緒度審核</button>
     </section>
 
+    <!-- Footer -->
     <footer>
         <p>© 2026 台灣扣件產業 AI 轉型研究小組 & <a href="https://github.com/taiwan-smart-fastener-alliance" target="_blank">台灣智慧扣件聯盟</a>. Licensed under CC BY-NC-SA 4.0.</p>
         <p style="font-size: 0.75rem; margin-top: 5px; color: var(--text-muted);">
@@ -630,8 +1423,106 @@
     </footer>
 </div>
 
+<!-- Glassmorphic Toasts Container -->
+<div id="toast-container"></div>
+
 <script>
-    // Elements
+    // Tab switching mechanism
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // Find button based on onclick attribute or construct mapping
+        let btnIndex = 0;
+        if (tabId === 'tab-oee') btnIndex = 0;
+        else if (tabId === 'tab-pdm') btnIndex = 1;
+        else if (tabId === 'tab-booking') btnIndex = 2;
+
+        document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+
+        showToast(`已切換至：${document.querySelectorAll('.tab-btn')[btnIndex].innerText.trim()}`, 'info');
+        
+        // If switching to PdM, initialize animation if not already running
+        if (tabId === 'tab-pdm') {
+            startOscilloscope();
+        }
+    }
+
+    // Glassmorphic Toast Notification System
+    function showToast(message, type = 'info', title = '') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        let iconChar = 'i';
+        let defaultTitle = '系統提示';
+        if (type === 'success') { iconChar = '✓'; defaultTitle = '操作成功'; }
+        else if (type === 'warning') { iconChar = '⚠️'; defaultTitle = '系統預警'; }
+        else if (type === 'danger') { iconChar = '⚡'; defaultTitle = '緊急告警'; }
+
+        toast.innerHTML = `
+            <div class="toast-icon">${iconChar}</div>
+            <div class="toast-body">
+                <h5>${title || defaultTitle}</h5>
+                <p>${message}</p>
+            </div>
+            <button class="toast-close" onclick="this.parentElement.classList.remove('show'); setTimeout(() => this.parentElement.remove(), 400);">&times;</button>
+        `;
+        
+        container.appendChild(toast);
+        
+        // Trigger reflow for slide animation
+        toast.offsetHeight;
+        toast.classList.add('show');
+        
+        // Auto remove
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 400);
+            }
+        }, 4500);
+    }
+
+    // Pre-fill selection package link
+    function selectPackage(pkgCode, pkgName) {
+        document.getElementById('booking-package').value = pkgCode;
+        document.getElementById('booking-section').scrollIntoView({ behavior: 'smooth' });
+        showToast(`已為您自動載入「商品 ${pkgCode}：${pkgName}」，請於下方表單輸入聯絡窗口！`, 'success');
+    }
+
+    // Submit Booking Form
+    function submitBooking(event) {
+        event.preventDefault();
+        const company = document.getElementById('company-name').value;
+        const contact = document.getElementById('contact-name').value;
+        const phone = document.getElementById('contact-phone').value;
+        const email = document.getElementById('contact-email').value;
+        const pkg = document.getElementById('booking-package').value;
+
+        // Sequence of professional glassmorphic toasts
+        showToast('正在向台灣智慧扣件聯盟數據中心傳送安全預約資料...', 'info', '傳送中');
+        
+        setTimeout(() => {
+            const ticketId = 'TW-2026-F-' + Math.floor(Math.random() * 90000 + 10000);
+            showToast(`預約提交成功！案號為 ${ticketId}，已完成對接系統登錄。`, 'success', '預約成功');
+            
+            setTimeout(() => {
+                showToast(`聯盟 AI 轉型顧問將於 24 小時內聯絡您的窗口 ${contact}，寄送 OT/IT 實地就緒度盤點手冊與對接補助規劃！`, 'warning', '顧問派發');
+                
+                // Clear form
+                event.target.reset();
+            }, 1200);
+        }, 1000);
+    }
+
+    // TAB 1: OEE & ROI CALCULATOR CODE
     const sAvail = document.getElementById('slider-avail');
     const sPerf = document.getElementById('slider-perf');
     const sQual = document.getElementById('slider-qual');
@@ -645,7 +1536,6 @@
     const oeeFormulaTxt = document.getElementById('oee-formula-txt');
     const oeeStatusTxt = document.getElementById('oee-status-txt');
 
-    // ROI Elements
     const sMachines = document.getElementById('slider-machines');
     const sInitLoss = document.getElementById('slider-init-loss');
     const sCapex = document.getElementById('slider-capex');
@@ -659,16 +1549,14 @@
     const rAccumSavings = document.getElementById('roi-accum-savings');
     const rIrr = document.getElementById('roi-irr');
 
-    // Chart Elements
     const tradLine = document.getElementById('trad-line');
     const aiLine = document.getElementById('ai-line');
     const interCircle = document.getElementById('intersection-point');
     const interLbl = document.getElementById('intersection-lbl');
 
-    // Calculation constants
-    const BASE_PCS_PER_YEAR_PER_MACHINE = 4000000; // 4 Million pcs/machine/year (e.g. 1.2 Billion total for 30 machines)
-    const UNIT_MANUFACTURING_COST = 0.5; // NT$ 0.5 per bolt
-    const QUALITY_COST_MULTIPLIER = 3.0; // 3x direct manufacturing cost due to car brand compensation
+    const BASE_PCS_PER_YEAR_PER_MACHINE = 4000000; 
+    const UNIT_MANUFACTURING_COST = 0.5; 
+    const QUALITY_COST_MULTIPLIER = 3.0; 
 
     function updateOEE() {
         const avail = parseFloat(sAvail.value) / 100;
@@ -684,11 +1572,10 @@
         oeeResult.innerText = oeePercentStr;
         oeeFormulaTxt.innerText = `OEE = ${(avail * 100).toFixed(1)}% × ${(perf * 100).toFixed(1)}% × ${(qual * 100).toFixed(1)}%`;
 
-        // Update display ring color
         oeeCircle.classList.remove('success', 'warning', 'danger');
         if (oee >= 0.85) {
             oeeCircle.classList.add('success');
-            oeeStatusTxt.innerText = '達到黃金標準 (≥ 85%)，產線運作效能優異！';
+            oeeStatusTxt.innerText = '達到黃金標準 (≥ 85%)，產線運作效能卓越！';
             oeeStatusTxt.style.color = 'var(--success-glow)';
         } else if (oee >= 0.70) {
             oeeCircle.classList.add('warning');
@@ -696,7 +1583,7 @@
             oeeStatusTxt.style.color = 'var(--warning-glow)';
         } else {
             oeeCircle.classList.add('danger');
-            oeeStatusTxt.innerText = '低於安全稼動閾值，舊機改造與排程優化有極高急迫性！';
+            oeeStatusTxt.innerText = '低於安全稼動閾值，舊機改造與排程優化有極高迫切性！';
             oeeStatusTxt.style.color = 'var(--danger-glow)';
         }
     }
@@ -704,31 +1591,22 @@
     function calculateROI() {
         const machines = parseInt(sMachines.value);
         const initLossRate = parseFloat(sInitLoss.value) / 100;
-        const capex = parseFloat(sCapex.value); // In 10k NTD
+        const capex = parseFloat(sCapex.value); 
 
         vMachines.innerText = `${machines} 台`;
         vInitLoss.innerText = (initLossRate * 100).toFixed(1) + '%';
         vCapex.innerText = `NT$ ${capex} 萬`;
 
-        // Annual production
         const totalPcs = machines * BASE_PCS_PER_YEAR_PER_MACHINE;
-
-        // Quality cost loss under traditional mode per year (NTD)
         const tradLossPerYear = totalPcs * initLossRate * UNIT_MANUFACTURING_COST * QUALITY_COST_MULTIPLIER;
-        
-        // Quality cost loss under AI mode (assumed at 0.1% defect rate)
         const targetLossRate = 0.001; 
         const aiLossPerYear = totalPcs * targetLossRate * UNIT_MANUFACTURING_COST * QUALITY_COST_MULTIPLIER;
 
-        // Annual savings (NTD)
         const annualSavingsNTD = tradLossPerYear - aiLossPerYear;
         const annualSavingsTenThousand = annualSavingsNTD / 10000;
         rAnnualSavings.innerText = `NT$ ${annualSavingsTenThousand.toFixed(0)} 萬`;
 
-        // Annual OpEx (assumed at 8% of CapEx + base 50k NTD per year, capped between 50-250)
         const annualOpex = Math.max(50, Math.min(250, (capex * 0.08) + 30)); 
-
-        // Payback period
         const netAnnualSavings = annualSavingsTenThousand - annualOpex;
         let paybackYears = 0;
         if (netAnnualSavings > 0) {
@@ -740,32 +1618,23 @@
             rPayback.style.color = 'var(--danger-glow)';
         }
 
-        // 5-Year net savings
         const fiveYearNetSavings = (netAnnualSavings * 5) - capex;
         rAccumSavings.innerText = `NT$ ${fiveYearNetSavings.toFixed(0)} 萬`;
         rAccumSavings.style.color = fiveYearNetSavings > 0 ? 'var(--success-glow)' : 'var(--danger-glow)';
 
-        // Internal Rate of Return (IRR) approximation
         let irr = 0;
         if (paybackYears > 0) {
-            // Approximating IRR over 5 years
             irr = (netAnnualSavings * 5 - capex) / capex / 5 * 100;
-            irr = Math.max(-50, Math.min(80, irr + 10)); // simple financial heuristic
+            irr = Math.max(-50, Math.min(80, irr + 10)); 
             rIrr.innerText = irr > 0 ? `${irr.toFixed(1)}%` : '0.0%';
         } else {
             rIrr.innerText = '0.0%';
         }
 
-        // Update interactive payback curve SVG
         updateChart(capex, annualSavingsTenThousand, annualOpex, paybackYears);
     }
 
     function updateChart(capex, annualSavings, annualOpex, payback) {
-        // We will generate the coordinates dynamically
-        // Height of SVG is 240, width is 600
-        // Data range: 0 to 4500 NTD Ten Thousand. Max Y represents 4500.
-        // Formula: yCoord = 210 - (val / 4500) * 190
-        // Formula: xCoord = 50 + (year - 1) * 125
         const maxY = 4500;
         
         function getSvgCoords(year, val) {
@@ -774,42 +1643,36 @@
             return {x, y};
         }
 
-        // Traditional Loss Points
-        const tradLossPerYear = annualSavings + annualOpex; // base quality loss scale
+        const tradLossPerYear = annualSavings + annualOpex; 
         const tradPoints = [];
         for (let y = 1; y <= 5; y++) {
             const accumLoss = tradLossPerYear * y;
             tradPoints.push(getSvgCoords(y, accumLoss));
         }
 
-        // AI Smart Manufacturing Total Investment Points (CapEx + accum OpEx + accum target loss)
-        const targetLossPerYear = annualSavings * 0.05; // remaining small loss
+        const targetLossPerYear = annualSavings * 0.05; 
         const aiPoints = [];
         for (let y = 1; y <= 5; y++) {
             const accumAiCost = capex + (annualOpex * y) + (targetLossPerYear * y);
             aiPoints.push(getSvgCoords(y, accumAiCost));
         }
 
-        // Draw Traditional Line Path
         let dTrad = `M ${tradPoints[0].x} ${tradPoints[0].y}`;
         for (let i = 1; i < tradPoints.length; i++) {
             dTrad += ` L ${tradPoints[i].x} ${tradPoints[i].y}`;
         }
         tradLine.setAttribute('d', dTrad);
 
-        // Draw AI Line Path
         let dAi = `M ${aiPoints[0].x} ${aiPoints[0].y}`;
         for (let i = 1; i < aiPoints.length; i++) {
             dAi += ` L ${aiPoints[i].x} ${aiPoints[i].y}`;
         }
         aiLine.setAttribute('d', dAi);
 
-        // Calculate exact intersection point on the screen
         if (payback > 0 && payback <= 5) {
             interCircle.style.display = 'block';
             interLbl.style.display = 'block';
 
-            // Linear interpolation for intersection coordinate
             const xIntersect = 50 + (payback - 1) * 125;
             const intersectValue = (tradLossPerYear * payback);
             const yIntersect = 210 - (intersectValue / maxY) * 190;
@@ -826,7 +1689,6 @@
         }
     }
 
-    // Event Listeners
     [sAvail, sPerf, sQual].forEach(slider => {
         slider.addEventListener('input', updateOEE);
     });
@@ -835,7 +1697,200 @@
         slider.addEventListener('input', calculateROI);
     });
 
-    // Init
+
+    // TAB 2: HIGH-FREQUENCY OSCILLOSCOPE & PDM SYSTEM
+    let pdmAnimationId = null;
+    let pdmFrame = 0;
+    let pdmState = 'normal'; // 'normal' | 'anomaly' | 'retraining'
+    
+    // Waveform data array (width 600, one point every 5px = 120 points)
+    const wavePointsCount = 120;
+    const waveArray = new Array(wavePointsCount).fill(170); // Baseline height is 170
+
+    // Metric DOMs
+    const domMaxForce = document.getElementById('pdm-max-force');
+    const domRul = document.getElementById('pdm-rul');
+    const domPsi = document.getElementById('pdm-psi');
+    const domPath = document.getElementById('oscilloscope-path');
+    const domAlertBox = document.getElementById('pdm-alert-box');
+
+    // LEDs
+    const ledNormal = document.getElementById('led-normal');
+    const ledDrift = document.getElementById('led-drift');
+    const ledAnomaly = document.getElementById('led-anomaly');
+
+    // Buttons
+    const btnPdmNormal = document.getElementById('btn-pdm-normal');
+    const btnPdmAnomaly = document.getElementById('btn-pdm-anomaly');
+    const btnPdmRetrain = document.getElementById('btn-pdm-retrain');
+
+    // Value states for metrics
+    let currentRul = 94.2;
+    let targetRul = 94.2;
+    let currentPsi = 0.03;
+    let targetPsi = 0.03;
+    let maxForceVal = 116;
+
+    function setPdmState(state) {
+        if (pdmState === 'retraining' && state !== 'normal') {
+            showToast('自適應重訓演算法優化中，請稍候重試。', 'warning');
+            return;
+        }
+
+        pdmState = state;
+        btnPdmNormal.className = 'btn ' + (state === 'normal' ? '' : 'secondary');
+        btnPdmAnomaly.className = 'btn btn-danger ' + (state === 'anomaly' ? '' : 'secondary');
+
+        ledNormal.classList.remove('active');
+        ledDrift.classList.remove('active');
+        ledAnomaly.classList.remove('active');
+
+        if (state === 'normal') {
+            ledNormal.classList.add('active');
+            targetRul = 94.2;
+            targetPsi = 0.03;
+            domAlertBox.style.display = 'none';
+            domPath.setAttribute('stroke', '#00e676'); // Green
+            showToast('已回復為常態生產基準波形監測，地端 CNN 模型狀態安全。', 'success');
+        } else if (state === 'anomaly') {
+            ledDrift.classList.add('active');
+            ledAnomaly.classList.add('active');
+            targetRul = 58.6;
+            targetPsi = 0.42;
+            domAlertBox.style.display = 'block';
+            domPath.setAttribute('stroke', '#ff1744'); // Crimson
+            showToast('⚠️ 成形敲擊力應變偏離！檢測到連續重擊崩模風險，已將微煞車迴路導通！', 'danger');
+        }
+    }
+
+    function retrainModel() {
+        if (pdmState === 'retraining') return;
+        if (pdmState === 'normal') {
+            showToast('當前 PSI 為 0.03，模型健康度極佳，無須重訓。', 'info');
+            return;
+        }
+
+        pdmState = 'retraining';
+        btnPdmRetrain.disabled = true;
+        btnPdmRetrain.classList.add('secondary');
+        
+        let percent = 0;
+        showToast('🔄 地端自適應模型重訓中... 優化 Autoencoder 隱藏層與梯度對齊...', 'info', 'AI 重訓中');
+
+        const interval = setInterval(() => {
+            percent += 20;
+            document.getElementById('retrain-txt').innerText = `自適應重訓 (${percent}%)`;
+            
+            if (percent >= 100) {
+                clearInterval(interval);
+                setPdmState('normal');
+                btnPdmRetrain.disabled = false;
+                btnPdmRetrain.classList.remove('secondary');
+                document.getElementById('retrain-txt').innerText = '自適應模型重訓';
+                showToast('✅ 地端特徵庫重訓練成功！波形黃金基準已校準，PSI 已降至 0.02 正常範圍。', 'success', '重訓完成');
+            }
+        }, 300);
+    }
+
+    function animateOscilloscope() {
+        pdmFrame++;
+        
+        // Generate new wave point
+        // Forging shock wave signature repeats every 50 ticks
+        const strikePeriod = 50;
+        const currentTick = pdmFrame % strikePeriod;
+        let newPoint = 170; // default baseline screen Y coordinates (170 is bottom)
+
+        // Calculate maximum force dynamic value based on state
+        if (pdmState === 'normal') {
+            maxForceVal = Math.floor(114 + Math.random() * 5);
+        } else if (pdmState === 'anomaly') {
+            maxForceVal = Math.floor(168 + Math.random() * 11);
+        } else if (pdmState === 'retraining') {
+            maxForceVal = Math.floor(140 - Math.random() * 10);
+        }
+
+        // Generate shock waveform
+        if (currentTick >= 0 && currentTick < 14) {
+            // Strike shock wave!
+            const progress = currentTick / 14; 
+            // Shape a double peak typical of fastener forging: pre-forming and final shaping
+            if (currentTick < 5) {
+                // Rising to peak 1
+                const localProg = currentTick / 5;
+                newPoint = 170 - (maxForceVal * 0.65) * Math.sin(localProg * Math.PI / 2);
+            } else if (currentTick < 8) {
+                // Dip slightly into intermediate valley
+                const localProg = (currentTick - 5) / 3;
+                newPoint = 170 - (maxForceVal * 0.65) + (maxForceVal * 0.15) * Math.sin(localProg * Math.PI / 2);
+            } else if (currentTick < 11) {
+                // Jump to final peak 2 (100% force)
+                const localProg = (currentTick - 8) / 3;
+                newPoint = 170 - (maxForceVal * 0.5) - (maxForceVal * 0.5) * Math.sin(localProg * Math.PI / 2);
+            } else {
+                // Sharp drop back to baseline
+                const localProg = (currentTick - 11) / 3;
+                const peakY = 170 - maxForceVal;
+                newPoint = peakY + (170 - peakY) * localProg;
+            }
+        } else {
+            // Background idle machine vibrations
+            newPoint = 170 - (4 + Math.random() * 3);
+        }
+
+        // Shift wave array left
+        waveArray.shift();
+        waveArray.push(newPoint);
+
+        // Render SVG Path d attribute
+        let pathD = `M 0 ${waveArray[0]}`;
+        for (let i = 1; i < wavePointsCount; i++) {
+            const x = i * 5;
+            pathD += ` L ${x} ${waveArray[i].toFixed(1)}`;
+        }
+        domPath.setAttribute('d', pathD);
+
+        // Smooth metrics transitions
+        currentRul += (targetRul - currentRul) * 0.05;
+        currentPsi += (targetPsi - currentPsi) * 0.05;
+
+        domMaxForce.innerText = maxForceVal;
+        domRul.innerText = currentRul.toFixed(1);
+        domPsi.innerText = currentPsi.toFixed(2);
+
+        // Color highlighting depending on thresholds
+        if (maxForceVal > 150) {
+            domMaxForce.style.color = 'var(--danger-glow)';
+        } else {
+            domMaxForce.style.color = 'var(--success-glow)';
+        }
+
+        if (currentRul > 80) {
+            domRul.style.color = 'var(--success-glow)';
+        } else if (currentRul > 65) {
+            domRul.style.color = 'var(--warning-glow)';
+        } else {
+            domRul.style.color = 'var(--danger-glow)';
+        }
+
+        if (currentPsi < 0.1) {
+            domPsi.style.color = 'var(--success-glow)';
+        } else if (currentPsi < 0.25) {
+            domPsi.style.color = 'var(--warning-glow)';
+        } else {
+            domPsi.style.color = 'var(--danger-glow)';
+        }
+
+        pdmAnimationId = requestAnimationFrame(animateOscilloscope);
+    }
+
+    function startOscilloscope() {
+        if (!pdmAnimationId) {
+            pdmAnimationId = requestAnimationFrame(animateOscilloscope);
+        }
+    }
+
+    // Inits
     updateOEE();
     calculateROI();
 </script>
