@@ -29,23 +29,27 @@ jobs:
         run: |
           pip install mkdocs-material pymdown-extensions weasyprint
 
+      - name: Generate Unified Markdown
+        run: |
+          python -c "
+          files = ['src/index.md', 'src/unit1-geopolitics.md', 'src/unit2-aqvc-framework.md', 'src/unit3-retrofit-mas.md', 'src/unit4-oee-roi.md', 'src/unit5-mlops-scope3.md', 'src/unit6-subsidy-guide.md', 'src/unit7-roadmap-kpi.md']
+          with open('src/unified.md', 'w', encoding='utf-8') as outfile:
+              for f in files:
+                  with open(f, 'r', encoding='utf-8') as infile:
+                      outfile.write(infile.read() + '\n\n')
+          "
+
       - name: Build Static Site HTML
-        run: mkdocs build --clean
+        run: |
+          mkdocs build --clean
+          mkdir -p site/interactive-tool
+          cp docs/interactive-tool/index.html site/interactive-tool/index.html
 
       - name: Generate Unified PDF Whitepaper
         run: |
-          echo "# 台灣扣件產業 AI 轉型白皮書" > unified.md
-          echo "## 邁向智造時代：從自動化到全局打通的 AI 落地指引" >> unified.md
-          cat src/unit1-geopolitics.md >> unified.md
-          cat src/unit2-aqvc-framework.md >> unified.md
-          cat src/unit3-retrofit-mas.md >> unified.md
-          cat src/unit4-oee-roi.md >> unified.md
-          cat src/unit5-mlops-scope3.md >> unified.md
-          cat src/unit6-subsidy-guide.md >> unified.md
-          cat src/unit7-roadmap-kpi.md >> unified.md
-          
-          # Compile to PDF and save inside the site output folder for downloading
-          weasyprint site/index.html site/pdf/taiwan-fastener-ai-whitepaper-latest.pdf
+          # Create output directory for PDF and compile using WeasyPrint on the compiled unified HTML page
+          mkdir -p site/pdf
+          weasyprint site/unified/index.html site/pdf/taiwan-fastener-ai-whitepaper-latest.pdf
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
