@@ -47,3 +47,19 @@ extra_javascript:
 
 plugins:
   - search
+
+nav:
+  - 🏠 首頁: index.md
+  - 🌐 產業挑戰與戰略:
+    - 單元一：全球地緣政治與數位斷層: unit1-geopolitics.md
+    - 單元二：AQVC 數據就緒度框架: unit2-aqvc-framework.md
+  - 🛠️ 智造實務與效益:
+    - 單元三：IoT 改造與排程失效預案: unit3-retrofit-mas.md
+    - 單元四：OEE 與 ROI 量化指標: unit4-oee-roi.md
+  - 🌿 永續治理與補助:
+    - 單元五：MLOps 與範疇三碳排聯防: unit5-mlops-scope3.md
+    - 單元六：政府補助資源精準對接: unit6-subsidy-guide.md
+    - 單元七：2026-2030 推進路線圖: unit7-roadmap-kpi.md
+  - 📄 資源下載:
+    - 📥 完整白皮書一鍵下載 (PDF): unified.md
+
